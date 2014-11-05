@@ -12,7 +12,7 @@ class Api::V1::TodosControllerTest < ActionController::TestCase
 
 		should "respond with all todos" do
 			@todos = {}
-			@todos["todos"] = Todo.all.as_json
+			@todos["todos"] = Todo.all.as_json(:except => [:created_at, :updated_at])
 			assert_equal @todos, json_response
 		end
   end
@@ -28,6 +28,12 @@ class Api::V1::TodosControllerTest < ActionController::TestCase
 
 		should "save todo object to db" do
 			assert assigns[:todo].persisted?, "should save todo object to db"
+		end
+
+		should "respond with todo json" do
+			json_hash = {}
+			json_hash["todo"] = assigns["todo"].as_json(:except => [:created_at, :updated_at])
+			assert_equal json_hash, json_response
 		end
 	end
 
@@ -54,6 +60,12 @@ class Api::V1::TodosControllerTest < ActionController::TestCase
 				assert_equal "new title", @todo.title, "should update title"
 				assert_equal 2, @todo.order, "should update order number"
 				assert @todo.completed, "should change completed status"
+			end
+
+			should "respond with todo json" do
+				json_hash = {}
+				json_hash["todo"] = assigns["todo"].as_json(:except => [:created_at, :updated_at])
+				assert_equal json_hash, json_response
 			end
 		end
 	end
