@@ -44,9 +44,6 @@ GEM
       i18n (~> 0.5)
     hike (1.2.3)
     i18n (0.6.11)
-    jbuilder (2.2.4)
-      activesupport (>= 3.0.0, < 5)
-      multi_json (~> 1.2)
     json (1.8.1)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -116,7 +113,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   faker
-  jbuilder
   pry-rails
   quiet_assets
   rails (= 4.1.6)

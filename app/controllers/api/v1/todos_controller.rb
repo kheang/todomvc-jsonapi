@@ -25,7 +25,7 @@ class Api::V1::TodosController < ApplicationController
 
 	def update
 		if @todo.update(todo_params)
-			render nothing: true, status: :ok
+			render json: @todo, status: :ok
 		else
 			render json: {errors: @todo.errors}, status: :bad_request
 		end
