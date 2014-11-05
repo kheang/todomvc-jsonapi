@@ -42,4 +42,19 @@ class Api::V1::TodosControllerTest < ActionController::TestCase
 			end
 		end
 	end
+
+	context "put todos#update" do
+		context "when I send valid new fields" do
+			setup { put :update, { id: todos(:one).id, title: "new title", order: 2, completed: true }}
+
+			should respond_with(:ok)
+
+			should "update todo object with new fields" do
+				@todo = Todo.find(todos(:one).id)
+				assert_equal "new title", @todo.title, "should update title"
+				assert_equal 2, @todo.order, "should update order number"
+				assert @todo.completed, "should change completed status"
+			end
+		end
+	end
 end

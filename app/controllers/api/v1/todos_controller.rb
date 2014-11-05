@@ -1,5 +1,5 @@
 class Api::V1::TodosController < ApplicationController
-	before_filter :load_todo, only: [:destroy]
+	before_filter :load_todo, only: [:destroy, :update]
 
 	def index
 		@todos = Todo.all
@@ -17,6 +17,14 @@ class Api::V1::TodosController < ApplicationController
 
 	def destroy
 		if @todo.destroy
+			render nothing: true, status: :ok
+		else
+			render json: {errors: @todo.errors}, status: :bad_request
+		end
+	end
+
+	def update
+		if @todo.update(todo_params)
 			render nothing: true, status: :ok
 		else
 			render json: {errors: @todo.errors}, status: :bad_request
